@@ -1,0 +1,12 @@
+{
+    "slack": {
+        "url": "slack endpoint",
+        "channel": "#channel or @user"
+    },
+
+    "garoon": {
+        "url": "garoon endpoint",
+        "user": "username",
+        "password": "password"
+    }
+}
