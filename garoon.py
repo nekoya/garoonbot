@@ -29,4 +29,4 @@ if __name__ == "__main__":
         xml = api.get_user_schedule(date=args.date, user_id=args.user)
     else:
         xml = api.get_facility_schedule(date=args.date, facility_id=args.facility)
-    slack.send(args.date.strftime('%Y-%m-%d %a'), schedule.find_events(xml))
+    slack.report_events(args.date.strftime('%Y-%m-%d %a'), schedule.find_events(xml))

@@ -6,10 +6,7 @@ from garoonbot import schedule
 from garoonbot.conf import settings
 
 
-def send(headline, events):
-    message = '```\n%s\n\n%s\n```' % (
-        headline,
-        '\n\n'.join([schedule.show(x) for x in events]))
+def send(message):
     requests.post(
         settings['slack']['url'],
         data=json.dumps({
@@ -18,3 +15,9 @@ def send(headline, events):
             'text': message,
             'channel': settings['slack']['channel']}),
         timeout=10)
+
+
+def report_events(headline, events):
+    send('```\n%s\n\n%s\n```' % (
+        headline,
+        '\n\n'.join([schedule.show(x) for x in events])))
