@@ -16,7 +16,7 @@ if __name__ == "__main__":
         '-d', '--date',
         type=lambda x: datetime.datetime.strptime(x, '%Y-%m-%d'),
         help='Target date YYYY-mm-dd')
-    parser.set_defaults(date=datetime.datetime.utcnow())
+    parser.set_defaults(date=datetime.datetime.now())
 
     args = parser.parse_args()
     f = lambda x: not any(x) or all(x)
