@@ -10,8 +10,8 @@ def send(message):
     requests.post(
         settings['slack']['url'],
         data=json.dumps({
-            'username': 'schedulebot',
-            'icon_emoji': ':date:',
+            'username': settings['slack']['username'],
+            'icon_emoji': settings['slack']['emoji'],
             'text': message,
             'channel': settings['slack']['channel']}),
         timeout=10)

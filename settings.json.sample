@@ -1,6 +1,8 @@
 {
     "slack": {
         "url": "slack endpoint",
+        "username": "schedulebot",
+        "emoji": ":date:",
         "channel": "#channel or @user"
     },
 

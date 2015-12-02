@@ -10,6 +10,8 @@ if __name__ == "__main__":
     parser.add_argument('-u', '--user', type=int, help='User id')
     parser.add_argument('-f', '--facility', type=int, help='Facility id')
     parser.add_argument('-c', '--channel', type=str, help='Slack channel')
+    parser.add_argument('-n', '--username', type=str, help='Slack username')
+    parser.add_argument('-e', '--emoji', type=str, help='Slack icon_emoji')
     parser.add_argument(
         '-d', '--date',
         type=lambda x: datetime.datetime.strptime(x, '%Y-%m-%d'),
@@ -22,8 +24,9 @@ if __name__ == "__main__":
         parser.print_help()
         sys.exit(1)
 
-    if args.channel:
-        conf.settings['slack']['channel'] = args.channel
+    for key in ('username', 'emoji', 'channel'):
+        if getattr(args, key):
+            conf.settings['slack'][key] = getattr(args, key)
 
     if args.user:
         xml = api.get_user_schedule(date=args.date, user_id=args.user)
