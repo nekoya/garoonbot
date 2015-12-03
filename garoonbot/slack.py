@@ -18,6 +18,8 @@ def send(message):
 
 
 def report_events(headline, events):
+    message = '\n\n'.join([schedule.show(x) for x in events])
+    if not events:
+        message = u'＿人人人人人人＿\n＞　予定なし　＜\n￣Y^Y^Y^Y^Y￣'
     send('```\n%s\n\n%s\n```' % (
-        headline,
-        '\n\n'.join([schedule.show(x) for x in events])))
+        headline, message))
