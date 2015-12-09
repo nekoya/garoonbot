@@ -31,6 +31,8 @@ def parse_period(event):
 
 
 def parse_jst_time(utc_datetime):
+    if not utc_datetime:
+        return ''
     return (datetime.datetime.strptime(utc_datetime, '%Y-%m-%dT%H:%M:%SZ') +
             datetime.timedelta(hours=9)).strftime('%H:%M')
 
