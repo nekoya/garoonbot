@@ -11,7 +11,7 @@ def send(message):
         settings['slack']['url'],
         data=json.dumps({
             'username': settings['slack']['username'],
-            'icon_emoji': settings['slack']['emoji'],
+            'icon_emoji': ':%s:' % settings['slack']['emoji'].strip(':'),
             'text': message,
             'channel': settings['slack']['channel']}),
         timeout=10)
