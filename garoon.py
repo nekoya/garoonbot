@@ -2,7 +2,7 @@ import argparse
 import datetime
 import sys
 
-from garoonbot import api, conf, schedule, slack
+from garoonbot import api, conf, fmt, schedule, slack
 
 
 if __name__ == "__main__":
@@ -32,4 +32,6 @@ if __name__ == "__main__":
         xml = api.get_user_schedule(date=args.date, user_id=args.user)
     else:
         xml = api.get_facility_schedule(date=args.date, facility_id=args.facility)
-    slack.report_events(args.date.strftime('%Y-%m-%d %a'), schedule.find_events(xml))
+
+    slack.send(fmt.date(args.date),
+               fmt.events(schedule.find_events(xml)))
