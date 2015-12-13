@@ -6,6 +6,13 @@ from garoonbot.conf import settings
 
 
 def send(head, detail=None):
+    """
+    Send message to Slack
+
+    Args:
+        head (str): Headline
+        detail (Optional[str]): Detail message ```%s```
+    """
     message = '%s\n```%s```' % (head, detail) if detail else head
     requests.post(
         settings['slack']['url'],

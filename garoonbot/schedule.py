@@ -7,11 +7,27 @@ Event = namedtuple('Event',  ('title',  'period', 'facility'))
 
 
 def find_events(xml):
+    """
+    Find events from XML
+
+    Args:
+        xml (str): Garoon API XML
+
+    Returns:
+        list[Events]
+    """
     _xml = etree.fromstring(xml.encode('utf-8'))
     return [eventify(x) for x in _xml.xpath('//schedule_event')]
 
 
 def parse_period(event):
+    """
+    Args:
+        event (Event):
+
+    Returns:
+        tuple[str]: (start, end) or (period,)
+    """
     elm = event.xpath('.//*[local-name()="date"]')
     if elm:
         return (u'終日 : ',)
@@ -29,6 +45,13 @@ def parse_period(event):
 
 
 def parse_jst_time(utc_datetime):
+    """
+    Args:
+        utc_datetime (datetime.datetime)
+
+    Returns:
+        str: time '%H:%M' as JST
+    """
     if not utc_datetime:
         return ''
     return (datetime.datetime.strptime(utc_datetime, '%Y-%m-%dT%H:%M:%SZ') +
@@ -36,6 +59,13 @@ def parse_jst_time(utc_datetime):
 
 
 def get_facility(event):
+    """
+    Args:
+        event (Event):
+
+    Returns:
+        str: Facility name
+    """
     elm = event.xpath('.//*[local-name()="facility"]')
     if elm:
         return elm[0].attrib['name']
@@ -43,6 +73,13 @@ def get_facility(event):
 
 
 def eventify(node):
+    """
+    Args:
+        node (lxml.etree.Element):
+
+    Returns:
+        Event:
+    """
     return Event(
         ('%s %s' % (
             node.attrib.get('plan', ''),
