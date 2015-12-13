@@ -30,8 +30,10 @@ if __name__ == "__main__":
 
     if args.user:
         xml = api.get_user_schedule(date=args.date, user_id=args.user)
+        with_facility = True
     else:
         xml = api.get_facility_schedule(date=args.date, facility_id=args.facility)
+        with_facility = False
 
     slack.send(fmt.date(args.date),
-               fmt.events(schedule.find_events(xml)))
+               fmt.events(schedule.find_events(xml), with_facility))
