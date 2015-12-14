@@ -35,5 +35,6 @@ if __name__ == "__main__":
         xml = api.get_facility_schedule(date=args.date, facility_id=args.facility)
         with_facility = False
 
-    slack.send(fmt.date(args.date),
-               fmt.events(schedule.find_events(xml), with_facility))
+    slack.send('', '\n\n'.join((
+        fmt.date(args.date),
+        fmt.events(schedule.find_events(xml), with_facility))))
