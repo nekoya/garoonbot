@@ -42,7 +42,7 @@ class TLSAdapter(HTTPAdapter):
 
 def _get_schedule(date, params):
     s = requests.Session()
-    s.mount('https://', TLSAdapter())
+    s.mount('https://', TLSAdapter(max_retries=5))
     return s.post(
         settings['garoon']['url'],
         data=tmpl % {'action': 'ScheduleGetEventsByTarget',
