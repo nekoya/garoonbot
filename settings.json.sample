@@ -7,7 +7,7 @@
     },
 
     "garoon": {
-        "url": "garoon endpoint",
+        "url": "https://yourgaroonhost/grn.exe/cbpapi/schedule/api?",
         "user": "username",
         "password": "password"
     }
