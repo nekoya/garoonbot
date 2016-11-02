@@ -67,9 +67,9 @@ def get_facility(event):
     Returns:
         str: Facility name
     """
-    elm = event.xpath('.//*[local-name()="facility"]')
-    if elm:
-        return elm[0].attrib['name']
+    elms = event.xpath('.//*[local-name()="facility"]')
+    if elms:
+        return ', '.join([x.attrib['name'] for x in elms])
     return ''
 
 
