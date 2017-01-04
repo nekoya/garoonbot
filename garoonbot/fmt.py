@@ -4,14 +4,14 @@
 def period(period):
     """
     Args:
-        period (tuple):
+        period (tuple|str):
 
     Returns:
         str:
     """
-    if len(period) == 2:
-        return u'%s 〜 %s\n' % period
-    return period[0]
+    if isinstance(period, tuple):
+        return u'{0:%H:%M} 〜 {1:%H:%M}\n' % period
+    return period
 
 
 def event(e, with_facility=True):

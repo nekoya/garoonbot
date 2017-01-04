@@ -24,14 +24,14 @@ def find_events(xml):
 def parse_period(event):
     """
     Args:
-        event (Event):
+        event: Event
 
     Returns:
-        tuple[str]: (start, end) or (period,)
+        tuple(start: datetime.datetime|None, end: datetime.datetime|None) | str
     """
     elm = event.xpath('.//*[local-name()="date"]')
     if elm:
-        return (u'終日 : ',)
+        return u'終日 : '
 
     elm = event.xpath('.//*[local-name()="datetime"]')
     if elm:
@@ -42,7 +42,7 @@ def parse_period(event):
     if elm:
         return (elm[0].attrib.get('start_time')[:-3],
                 elm[0].attrib.get('end_time')[:-3])
-    return ('',)
+    return ''
 
 
 def parse_jst_time(utc_datetime):
@@ -51,12 +51,12 @@ def parse_jst_time(utc_datetime):
         utc_datetime (datetime.datetime)
 
     Returns:
-        str: time '%H:%M' as JST
+        datetime.datetime as JST | None
     """
     if not utc_datetime:
-        return ''
+        return None
     return (datetime.datetime.strptime(utc_datetime, '%Y-%m-%dT%H:%M:%SZ') +
-            datetime.timedelta(hours=9)).strftime('%H:%M')
+            datetime.timedelta(hours=9))
 
 
 def get_facility(event):
