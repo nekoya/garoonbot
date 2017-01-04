@@ -14,7 +14,7 @@ def find_events(xml):
         xml (str): Garoon API XML
 
     Returns:
-        list[Events]
+        list[Event]
     """
     _xml = etree.fromstring(xml.encode('utf-8'))
     return [eventify(x) for x in _xml.xpath('//schedule_event')
@@ -87,3 +87,16 @@ def eventify(node):
             node.attrib.get('detail', ''))).strip(),
         parse_period(node),
         get_facility(node))
+
+
+def is_busy(dt, events):
+    """
+    Args:
+        dt (datetime.datetime):
+        events (list[Event])
+
+    Returns:
+        bool: in use or not
+    """
+    return any([x.period for x in events if isinstance(x.period, tuple) and
+                x.period[0] <= dt and x.period[1] > dt])
