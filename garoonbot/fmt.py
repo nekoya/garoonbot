@@ -10,7 +10,7 @@ def period(period):
         str:
     """
     if isinstance(period, tuple):
-        return u'{0:%H:%M} 〜 {1:%H:%M}\n' % period
+        return u'{0:%H:%M} 〜 {1:%H:%M}\n'.format(period)
     return period
 
 
