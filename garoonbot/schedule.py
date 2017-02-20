@@ -17,8 +17,7 @@ def find_events(xml):
         list[Event]
     """
     _xml = etree.fromstring(xml.encode('utf-8'))
-    return [eventify(x) for x in _xml.xpath('//schedule_event')
-            if x.attrib.get('public_type', '') == 'public']
+    return [eventify(x) for x in _xml.xpath('//schedule_event')]
 
 
 def parse_period(event):
@@ -81,6 +80,8 @@ def eventify(node):
     Returns:
         Event:
     """
+    if node.attrib.get('public_type', '') != 'public':
+        return Event('予定あり', parse_period(node), '')
     return Event(
         ('%s %s' % (
             node.attrib.get('plan', ''),
